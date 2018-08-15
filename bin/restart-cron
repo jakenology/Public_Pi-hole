@@ -1,0 +1,3 @@
+#!/bin/bash
+# Restart Cron
+/etc/init.d/cron restart
