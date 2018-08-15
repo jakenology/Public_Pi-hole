@@ -1,0 +1,44 @@
+#!/bin/bash
+## Universal Pi-hole Settings Script
+## This script will update all settings to be universal with all Pi-hole's 
+## Check for a temporary directory
+if [ ! -d /etc/UniPi ]; then
+    mkdir /etc/UniPi
+fi
+
+## Change Directory into UniPi
+cd /etc/UniPi
+
+## Clone the UniPi repo
+git clone https://github.com/jaykepeters/UniPi.git
+
+## Rename UniPi to Downloads
+mv ./UniPi ./Downloads
+
+## Change Directory into Downloads
+cd ./Downloads
+
+## Update binaries
+for filename in bin/*
+do
+    mv $filename /usr/local/bin/
+done;
+
+# Give execute permissions
+
+for file in /usr/local/bin/*
+do
+    chmod a+x $file
+done;
+
+## Update DNS Settings
+
+## Add Cron Jobs
+
+## Remove Downloads
+cd ..
+rm -rf ./Downloads
+
+## Put all files into a list
+
+# for each file in list, if -z or whataver and the files is empty, then remove it or whataver it is supposed to be. there should be a generated list of the bin and cron and such directories....
