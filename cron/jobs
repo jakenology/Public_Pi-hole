@@ -1,0 +1,11 @@
+# Enforce DNS below
+* * * * * /usr/local/bin/custom-settings.sh
+
+# Restart DNSMasq every 30 Minutes
+*/30 * * * * /usr/local/bin/pihole restartdns
+
+# Block Fortnite at specified Time
+0 23 * * * /usr/local/bin/pihole --wild epicgames.com
+
+# Unblock Fortnite at Specified Time
+14 23 * * * /usr/local/bin/pihole --wild --delmode epicgames.com && /usr/local/bin/pihole restartdns
