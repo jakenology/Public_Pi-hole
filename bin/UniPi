@@ -10,7 +10,9 @@ fi
 cd /etc/UniPi
 
 ## Clone the UniPi repo
-git clone https://github.com/jaykepeters/UniPi.git
+# Display Message
+echo "Downloading Configuration"
+git clone https://github.com/jaykepeters/UniPi.git --quiet
 
 ## Rename UniPi to Downloads
 mv ./UniPi ./Downloads
