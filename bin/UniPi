@@ -15,6 +15,10 @@ message() {
     echo "$1"
 }
 
+silently() {
+    "$1" 2>&1 >/dev/null
+}
+
 preCheck() {
     # Notify User
     message "Running Checks..."
@@ -158,7 +162,7 @@ main() {
     getConfig
 
     # Update Binaries
-    updateBin
+    silently updateBin
 
     # Update Pi-hole Settings
     updatePihole
