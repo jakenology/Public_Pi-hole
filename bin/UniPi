@@ -1,8 +1,15 @@
+## FIx cron issue
+## HOSTNAME ISSUE
+## MOVE BINRIES 
+## /etc/cron.d/file
+## make new cron for that?
+
 #!/bin/bash
 ## Universal Pi-hole Settings Script
 ## This script will update all settings to be universal with all Pi-hole's 
 ## Define Global Variables
 unipiDir="/etc/UniPi"
+binDir="/usr/local/bin"
 repo="https://github.com/jaykepeters/UniPi.git"
 master="FALSE"
 
@@ -20,6 +27,7 @@ preCheck() {
     if [ -f "$unipiDir/install.receipt"]; then
         message "Install Check Passed"
     fi
+
     # Check for UniPi Directory as defined above
     if [ ! -d $unipiDir ]; then
         mkdir $unipiDir
@@ -34,7 +42,17 @@ preCheck() {
     # Is this instance a slave?
     if [ -f "$unipiDir/slave" ]; then
         message "THIS IS A SLAVE INSTANCE"
+    else
+        touch "$unipiDir/slave"
     fi
+}
+
+## Set the Time Zone
+setTime() {
+    # Copied from https://serverfault.com/questions/94991/setting-the-timezone-with-an-automated-script
+    TIMEZONE="America/Chicago"      
+    echo $TIMEZONE > /etc/timezone                     
+    cp /usr/share/zoneinfo/${TIMEZONE} /etc/localtime   # This sets the time
 }
 
 ## Get Configuration from GitHub Repo
@@ -55,19 +73,38 @@ getConfig() {
 
 ## Update binaries
 updateBin() {
+    checkBin() {
+        if [ ! -d "$binDir/UniPi" ]; then
+            mkdir "$binDir/UniPi"
+        fi
+    }
+
+    resetBin() {
+        # Notify the User
+        message "Removing Old Binaries..."
+        rm -rf "$binDir/UniPi/*"
+    }
+
     message "Updating Binaries"
     for filename in bin/*
     do
-        mv $filename /usr/local/bin/
+        mv $filename "$binDir/UniPi/"
     done;
 
+    symLink() {
+        ln -s "$binDir/UniPi/*" $binDir
+    }
+
     giveExecutePerms() {
-        for file in /usr/local/bin/*
+        for file in "$binDir/UniPi/*"
         do
             chmod a+x $file
         done;
     }
 
+    checkBin
+    resetBin
+    symLink
     giveExecutePerms
 }
 
@@ -91,6 +128,8 @@ updateDNS() {
     do
         mv $filename /etc/dnsmasq.d/
     done;
+
+    ## Hosts file add dns safesearch entriess
 }
 
 ## Add Cron Jobs
@@ -116,6 +155,9 @@ main() {
     # Pre-Check
     preCheck
 
+    # Set Time Zone
+    setTime
+
     # Get Configuration
     getConfig
 
@@ -137,3 +179,5 @@ main() {
 
 ## Start Me!
 main
+
+## ADD SUPPORT FOR CLI ARGS such as install, reconfigure, and remove...,
