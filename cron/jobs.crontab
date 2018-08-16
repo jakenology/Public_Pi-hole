@@ -1,3 +1,5 @@
+# Reboot the Server at 2:00 A.M. Every Day
+0 2 * * * touch /etc/UniPi/reboot && reboot
 # Get Definitions Every 30 Seconds
 * * * * * sleep 30; /usr/local/bin/UniPi
 # Enforce DNS below
@@ -7,4 +9,4 @@
 # Block Fortnite at specified Time (11:00 PM)
 0 23 * * * /usr/local/bin/pihole --wild epicgames.com
 # Unblock Fortnite at Specified Time (7:30 AM)
-30 07 * * * /usr/local/bin/pihole --wild --delmode epicgames.com && /usr/local/bin/pihole restartdns
+30 7 * * * /usr/local/bin/pihole --wild --delmode epicgames.com && /usr/local/bin/pihole restartdns
