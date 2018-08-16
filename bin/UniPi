@@ -19,6 +19,7 @@ preCheck() {
     # Have we ever installed yet?
     if [ -f "$unipiDir/install.receipt"]; then
         message "Install Check Passed"
+    fi
     # Check for UniPi Directory as defined above
     if [ ! -d $unipiDir ]; then
         mkdir $unipiDir
