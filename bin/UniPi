@@ -1,46 +1,98 @@
 #!/bin/bash
 ## Universal Pi-hole Settings Script
 ## This script will update all settings to be universal with all Pi-hole's 
-## Check for a temporary directory
-if [ ! -d /etc/UniPi ]; then
-    mkdir /etc/UniPi
-fi
+## Define Global Variables
+unipiDir="/etc/UniPi"
+repo="https://github.com/jaykepeters/UniPi.git"
 
-## Change Directory into UniPi
-cd /etc/UniPi
+## Define Functions
+## Pre-Check (Are we ready to go?)
+message() {
+    echo "$1"
+}
 
-## Clone the UniPi repo
-# Display Message
-echo "Downloading Configuration"
-git clone https://github.com/jaykepeters/UniPi.git --quiet
+preCheck() {
+    # Notify User
+    message "Running Checks..."
+    # Check for UniPi Directory as defined above
+    if [ ! -d $unipiDir ]; then
+        mkdir $unipiDir
+    fi
+}
 
-## Rename UniPi to Downloads
-mv ./UniPi ./Downloads
+## Get Configuration from GitHub Repo
+getConfig() {
+    message "Getting Configuration"
+    # Change Directory into UniPi
+    cd $unipiDir
 
-## Change Directory into Downloads
-cd ./Downloads
+    # Clone Repo
+    git clone $repo
+
+    # Rename to Downlaods
+    mv ./UniPi ./Downloads
+
+    # Change Directory into Downloads
+    cd ./Downloads
+}
 
 ## Update binaries
-for filename in bin/*
-do
-    mv $filename /usr/local/bin/
-done;
+updateBin() {
+    message "Updating Binaries"
+    for filename in bin/*
+    do
+        mv $filename /usr/local/bin/
+    done;
 
-# Give execute permissions
+    giveExecutePerms() {
+        for file in /usr/local/bin/*
+        do
+            chmod a+x $file
+        done;
+    }
 
-for file in /usr/local/bin/*
-do
-    chmod a+x $file
-done;
+    giveExecutePerms
+}
 
 ## Update DNS Settings
+updateDNS() {
+    for filename in dns/*
+    do
+        mv $filename /etc/dnsmasq.d/
+    done;
+}
 
 ## Add Cron Jobs
+updateCron() {
+    echo "Nothing here..."
+}
 
-## Remove Downloads
-cd ..
-rm -rf ./Downloads
+## Finish Up
+finishUp() {
+    cd ..
+    rm -rf ./Downloads
+}
 
-## Put all files into a list
+## MAIN LOOP 
+main() {
+    # Pre-Check
+    preCheck
 
-# for each file in list, if -z or whataver and the files is empty, then remove it or whataver it is supposed to be. there should be a generated list of the bin and cron and such directories....
+    # Get Configuration
+    getConfig
+
+    # Update Binaries
+    updateBin
+
+    # Update DNS Settings
+    updateDNS
+
+    # Add Cron Jobs
+    updateCron
+
+    # Finish Up
+    finishUp
+}
+
+## Start Me!
+main
