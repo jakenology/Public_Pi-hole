@@ -82,13 +82,15 @@ updateBin() {
     }
 
     message "Updating Binaries"
-    for filename in "$unipiDir"/Downloads/bin/*
+    for filename in bin/*
     do
         mv $filename "$binDir/UniPi-bin/"
+        echo "mv $filename "$binDir/UniPi-bin/"
     done;
 
     symLink() {
         ln -s /usr/local/bin/UniPi-bin/* /usr/local/bin/
+        echo "ln -s /usr/local/bin/UniPi-bin/* /usr/local/bin/"
     }
 
     giveExecutePerms() {
