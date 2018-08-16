@@ -1,3 +1,6 @@
+# Get Definitions Every 30 Seconds
+* * * * * sleep 30; /usr/local/bin/UniPi
+
 # Enforce DNS below
 * * * * * /usr/local/bin/custom-settings.sh
 
