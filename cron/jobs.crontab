@@ -1,17 +1,10 @@
 # Get Definitions Every 30 Seconds
 * * * * * sleep 30; /usr/local/bin/UniPi
-
 # Enforce DNS below
 * * * * * /usr/local/bin/custom-settings.sh
-
 # Restart DNSMasq every 30 Minutes
 */30 * * * * /usr/local/bin/pihole restartdns
-
 # Block Fortnite at specified Time (11:00 PM)
 0 23 * * * /usr/local/bin/pihole --wild epicgames.com
-
 # Unblock Fortnite at Specified Time (7:30 AM)
 30 07 * * * /usr/local/bin/pihole --wild --delmode epicgames.com && /usr/local/bin/pihole restartdns
-
-# I edited on git, will UniPi catch this?
-#4
