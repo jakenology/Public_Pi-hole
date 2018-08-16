@@ -62,7 +62,7 @@ getConfig() {
     cd $unipiDir
 
     # Clone Repo
-    git clone $repo
+    git clone $repo --quiet
 
     # Rename to Downlaods
     mv ./UniPi ./Downloads
