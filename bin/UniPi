@@ -1,8 +1,5 @@
 ## FIx cron issue
 ## HOSTNAME ISSUE
-## MOVE BINRIES 
-## /etc/cron.d/file
-## make new cron for that?
 
 #!/bin/bash
 ## Universal Pi-hole Settings Script
