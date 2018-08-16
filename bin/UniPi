@@ -69,6 +69,9 @@ updateDNS() {
     do
         mv $filename /etc/dnsmasq.d/
     done;
+    
+    # Restart DNS
+    service dnsmasq restart
 }
 
 ## Add Cron Jobs
