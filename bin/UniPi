@@ -92,7 +92,7 @@ updateBin() {
     done;
 
     symLink() {
-        ln -s "$binDir/UniPi-bin/"* "$binDir"/
+        ln -s /usr/local/bin/UniPi-bin/* $binDir
     }
 
     giveExecutePerms() {
