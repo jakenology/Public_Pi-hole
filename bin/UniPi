@@ -4,6 +4,7 @@
 ## Define Global Variables
 unipiDir="/etc/UniPi"
 repo="https://github.com/jaykepeters/UniPi.git"
+master="FALSE"
 
 ## Define Functions
 ## Pre-Check (Are we ready to go?)
@@ -14,9 +15,24 @@ message() {
 preCheck() {
     # Notify User
     message "Running Checks..."
+
+    # Have we ever installed yet?
+    if [ -f "$unipiDir/install.receipt"]; then
+        message "Install Check Passed"
     # Check for UniPi Directory as defined above
     if [ ! -d $unipiDir ]; then
         mkdir $unipiDir
+    fi
+
+    # Is this instance the master?
+    if [ -f "$unipiDir/master" ]; then
+        message "THIS IS THE MASTER INSTANCE"
+        master="TRUE"
+    fi
+
+    # Is this instance a slave?
+    if [ -f "$unipiDir/slave" ]; then
+        message "THIS IS A SLAVE INSTANCE"
     fi
 }
 
@@ -56,11 +72,16 @@ updateBin() {
 
 ## Update Pi-hole Settings
 updatePihole() {
+    echo "Checking for Pi-hole Updates..."
+    pihole -up >> /dev/null
+
     message "Updating Pi-hole Configuration"
     for filename in pihole/*
     do
         mv $filename /etc/pihole/
     done;
+
+    service dnsmasq restart
 }
 
 ## Update DNS Settings
@@ -69,9 +90,6 @@ updateDNS() {
     do
         mv $filename /etc/dnsmasq.d/
     done;
-    
-    # Restart DNS
-    service dnsmasq restart
 }
 
 ## Add Cron Jobs
