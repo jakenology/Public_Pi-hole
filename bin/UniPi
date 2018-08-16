@@ -27,7 +27,7 @@ getConfig() {
     cd $unipiDir
 
     # Clone Repo
-    git clone $repo
+    git clone $repo --quiet
 
     # Rename to Downlaods
     mv ./UniPi ./Downloads
@@ -64,7 +64,7 @@ updateDNS() {
 
 ## Add Cron Jobs
 updateCron() {
-    echo "Nothing here..."
+    echo "This function is empty..."
 }
 
 ## Finish Up
