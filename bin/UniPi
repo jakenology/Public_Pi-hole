@@ -88,7 +88,7 @@ updateBin() {
     done;
 
     symLink() {
-        ln -s /usr/local/bin/UniPi-bin/* /usr/local/bin/
+        ln -s /usr/local/bin/UniPi-bin/* /usr/local/bin
     }
 
     giveExecutePerms() {
