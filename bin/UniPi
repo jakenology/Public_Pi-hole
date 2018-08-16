@@ -74,29 +74,29 @@ getConfig() {
 ## Update binaries
 updateBin() {
     checkBin() {
-        if [ ! -d "$binDir/UniPi" ]; then
-            mkdir "$binDir/UniPi"
+        if [ ! -d "$binDir/UniPi-bin" ]; then
+            mkdir "$binDir/UniPi-bin"
         fi
     }
 
     resetBin() {
         # Notify the User
         message "Removing Old Binaries..."
-        rm -rf "$binDir/UniPi/*"
+        rm -rf "$binDir/UniPi-bin/*"
     }
 
     message "Updating Binaries"
     for filename in bin/*
     do
-        mv $filename "$binDir/UniPi/"
+        mv $filename "$binDir/UniPi-bin/"
     done;
 
     symLink() {
-        ln -s "$binDir/UniPi/*" $binDir
+        ln -s "$binDir/UniPi-bin/*" $binDir
     }
 
     giveExecutePerms() {
-        for file in "$binDir/UniPi/*"
+        for file in "$binDir/UniPi-bin/*"
         do
             chmod a+x $file
         done;
