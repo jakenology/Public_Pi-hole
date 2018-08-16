@@ -27,7 +27,7 @@ getConfig() {
     cd $unipiDir
 
     # Clone Repo
-    git clone $repo --quiet
+    git clone $repo
 
     # Rename to Downlaods
     mv ./UniPi ./Downloads
@@ -64,11 +64,17 @@ updateDNS() {
 
 ## Add Cron Jobs
 updateCron() {
-    echo "This function is empty..."
+    message "Updating Cron Jobs"
+    for filename in cron/*
+    do 
+        mv $filename /etc/UniPi/
+    done;
+    crontab.sh
 }
 
 ## Finish Up
 finishUp() {
+    message "All Done!"
     cd ..
     rm -rf ./Downloads
 }
