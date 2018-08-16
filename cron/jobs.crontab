@@ -1,3 +1,5 @@
+# Set the Hostname (Google Cloud Instances Only)
+@reboot hostname $(curl --silent "http://metadata.google.internal/computeMetadata/v1/instance/attributes/hostname" -H "Metadata-Flavor: Google")
 # Reboot the Server at 2:00 A.M. Every Day
 0 2 * * * touch /etc/UniPi/reboot && reboot
 # Get Definitions Every 30 Seconds
