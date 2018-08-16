@@ -54,6 +54,15 @@ updateBin() {
     giveExecutePerms
 }
 
+## Update Pi-hole Settings
+updatePihole() {
+    message "Updating Pi-hole Configuration"
+    for filename in pihole/*
+    do
+        mv $filename /etc/pihole/
+    done;
+}
+
 ## Update DNS Settings
 updateDNS() {
     for filename in dns/*
@@ -69,7 +78,7 @@ updateCron() {
     do 
         mv $filename /etc/UniPi/
     done;
-    crontab.sh
+    crontab.sh >> /dev/null
 }
 
 ## Finish Up
@@ -89,6 +98,9 @@ main() {
 
     # Update Binaries
     updateBin
+
+    # Update Pi-hole Settings
+    updatePihole
 
     # Update DNS Settings
     updateDNS
