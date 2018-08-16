@@ -74,6 +74,7 @@ updateDNS() {
 ## Add Cron Jobs
 updateCron() {
     message "Updating Cron Jobs"
+    crontab.sh --remove
     for filename in cron/*
     do 
         mv $filename /etc/UniPi/
