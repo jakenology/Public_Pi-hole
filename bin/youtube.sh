@@ -16,19 +16,19 @@ blacklist='/var/www/html/blacklist.txt'
 # Get the domain list from hackeragent api 
 # change it to be r[Number]---sn--
 # added to the youtubeFile
-#sudo curl 'https://api.hackertarget.com/hostsearch/?q=googlevideo.com' \
-#| awk -F, 'NR>1{print $1}'|sed "s/\(^r[[:digit:]]*\)\.\(sn\)/$piholeIPV4 \1---\2-/ ">>$balckListFile
+sudo curl 'https://api.hackertarget.com/hostsearch/?q=googlevideo.com' \
+| awk -F, 'NR>1{print $1}'|sed "s/\(^r[[:digit:]]*\)\.\(sn\)/$piholeIPV4 \1---\2-/ ">>$balckListFile
 
 #sudo curl 'https://api.hackertarget.com/hostsearch/?q=googlevideo.com' \
 #| awk -F, 'NR>1{print $1}'|sed "s/\(^r[[:digit:]]*\)\.\(sn\)/$piholeIPV6 \1---\2-/ ">>$balckListFile
 
-sudo curl 'https://api.hackertarget.com/hostsearch/?q=googlevideo.com' \
-| awk -F, 'NR>1{print $1}'|sed "s/\(^r[[:digit:]]*\)\.\(sn\)/\1---\2-/ ">>$blacklist
+#sudo curl 'https://api.hackertarget.com/hostsearch/?q=googlevideo.com' \
+#| awk -F, 'NR>1{print $1}'|sed "s/\(^r[[:digit:]]*\)\.\(sn\)/\1---\2-/ ">>$blacklist
 
 # collecting the youtube ads website from the pihole logs and added it the youtubeList.txt 
 sudo cat /var/log/pihole*.log |grep 'r[0-9]*-.*.googlevideo'|awk -v a=$piholeIPV4 '{print a " " $8}'|sort |uniq>> $balckListFile
-sudo cat /var/log/pihole*.log |grep 'r[0-9]*-.*.googlevideo'|awk -v a=$piholeIPV6 '{print a " " $8}'|sort |uniq>> $balckListFile
-sudo cat /var/log/pihole*.log |grep 'r[0-9]*-.*.googlevideo'|awk '{print $8}'|sort |uniq>> $blacklist
+# sudo cat /var/log/pihole*.log |grep 'r[0-9]*-.*.googlevideo'|awk -v a=$piholeIPV6 '{print a " " $8}'|sort |uniq>> $balckListFile
+# sudo cat /var/log/pihole*.log |grep 'r[0-9]*-.*.googlevideo'|awk '{print $8}'|sort |uniq>> $blacklist
 
 wait 
 # remove the duplicate records in place
