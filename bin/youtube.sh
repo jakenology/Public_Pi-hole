@@ -6,8 +6,9 @@
 # The script will create a file with all the youtube ads found in hostsearch and from the logs of the Pi-hole
 # it will append the list into a file called blacklist.txt'/etc/pihole/blacklist.txt'
 
-piholeIPV4=`hostname -I |awk '{print $1}'`
-piholeIPV6=`hostname -I |awk '{print $2}'`
+# piholeIPV4=`hostname -I |awk '{print $1}'`
+# piholeIPV6=`hostname -I |awk '{print $2}'`
+piholeIPV4="127.0.0.1"
 
 balckListFile='/var/www/html/blacklist.txt'
 blacklist='/var/www/html/blacklist.txt'
