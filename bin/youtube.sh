@@ -10,7 +10,7 @@ piholeIPV4=`hostname -I |awk '{print $1}'`
 piholeIPV6=`hostname -I |awk '{print $2}'`
 
 balckListFile='/etc/pihole/black.list'
-blacklist='/etc/pihole/blacklist.txt'
+blacklist='/var/www/html/blacklist.txt'
 # Get the domain list from hackeragent api 
 # change it to be r[Number]---sn--
 # added to the youtubeFile
