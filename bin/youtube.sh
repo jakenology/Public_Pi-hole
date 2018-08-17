@@ -37,4 +37,4 @@ wait
 gawk -i inplace '!a[$0]++' $blacklist
 
 # Echo Updated
-echo '# Updated on: ' $(date) >> $blacklist
+# echo '# Updated on: ' $(date) >> $blacklist
