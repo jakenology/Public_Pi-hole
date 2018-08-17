@@ -9,6 +9,7 @@
 # piholeIPV4=`hostname -I |awk '{print $1}'`
 # piholeIPV6=`hostname -I |awk '{print $2}'`
 piholeIPV4="127.0.0.1"
+piholeIPV6="127.0.0.1"
 
 balckListFile='/var/www/html/blacklist.txt'
 blacklist='/var/www/html/blacklist.txt'
