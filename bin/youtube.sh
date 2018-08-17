@@ -16,11 +16,11 @@ blacklist='/var/www/html/blacklist.txt'
 # Get the domain list from hackeragent api 
 # change it to be r[Number]---sn--
 # added to the youtubeFile
-sudo curl 'https://api.hackertarget.com/hostsearch/?q=googlevideo.com' \
-| awk -F, 'NR>1{print $1}'|sed "s/\(^r[[:digit:]]*\)\.\(sn\)/$piholeIPV4 \1---\2-/ ">>$balckListFile
+#sudo curl 'https://api.hackertarget.com/hostsearch/?q=googlevideo.com' \
+#| awk -F, 'NR>1{print $1}'|sed "s/\(^r[[:digit:]]*\)\.\(sn\)/$piholeIPV4 \1---\2-/ ">>$balckListFile
 
-sudo curl 'https://api.hackertarget.com/hostsearch/?q=googlevideo.com' \
-| awk -F, 'NR>1{print $1}'|sed "s/\(^r[[:digit:]]*\)\.\(sn\)/$piholeIPV6 \1---\2-/ ">>$balckListFile
+#sudo curl 'https://api.hackertarget.com/hostsearch/?q=googlevideo.com' \
+#| awk -F, 'NR>1{print $1}'|sed "s/\(^r[[:digit:]]*\)\.\(sn\)/$piholeIPV6 \1---\2-/ ">>$balckListFile
 
 sudo curl 'https://api.hackertarget.com/hostsearch/?q=googlevideo.com' \
 | awk -F, 'NR>1{print $1}'|sed "s/\(^r[[:digit:]]*\)\.\(sn\)/\1---\2-/ ">>$blacklist
