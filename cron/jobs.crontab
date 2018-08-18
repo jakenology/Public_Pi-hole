@@ -10,3 +10,4 @@
 */30 * * * * /usr/local/bin/pihole restartdns
 # Check for youtube ads every minute and upload lists
 # * * * * * /usr/local/bin/youtube.sh; pihole -g
+35 0 * * * service lighttpd start
