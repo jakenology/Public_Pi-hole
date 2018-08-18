@@ -61,6 +61,7 @@ if type crontab >/dev/null 2>/dev/null; then
         if crontab_exists; then
             msg Removing crontab entry ...
             crontab -l 2>/dev/null | sed -e "\?^$cron_unique_label\$?,/^\$/ d" | crontab -
+            restart-cron
         else
             msg "Crontab entry does not exist, nothing to do."
         fi
