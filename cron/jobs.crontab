@@ -2,15 +2,11 @@
 @reboot hostname $(curl --silent "http://metadata.google.internal/computeMetadata/v1/instance/attributes/hostname" -H "Metadata-Flavor: Google")
 # Reboot the Server at 2:00 A.M. Every Day
 0 2 * * * touch /etc/UniPi/reboot && reboot
-# Get Definitions Every 30 Seconds
-* * * * * sleep 30; /usr/local/bin/UniPi
+# Get Definitions Every 5 Minutes
+*/5 * * * * /usr/local/bin/UniPi
 # Enforce DNS below
 * * * * * /usr/local/bin/custom-settings.sh
 # Restart DNSMasq every 30 Minutes
 */30 * * * * /usr/local/bin/pihole restartdns
-# Block Fortnite at specified Time (11:00 PM)
-0 23 * * * /usr/local/bin/pihole --wild epicgames.com && /usr/local/bin/pihole restartdns
-# Unblock Fortnite at Specified Time (7:30 AM)
-30 7 * * * /usr/local/bin/pihole --wild --delmode epicgames.com && /usr/local/bin/pihole restartdns
 # Check for youtube ads every minute and upload lists
 # * * * * * /usr/local/bin/youtube.sh; pihole -g
