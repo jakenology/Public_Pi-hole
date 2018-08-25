@@ -4,5 +4,4 @@ nmap
 hping3
 w3m
 w3m-mg
-mysql-server
-mysql-client
+tree
