@@ -1,0 +1,2 @@
+curl https://get.acme.sh | sh
+# Make SymLink for /usr/local/bin/acme.sh
