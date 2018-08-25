@@ -1,3 +1,6 @@
 fail2ban
 letsencrypt
 nmap
+hping3
+w3m
+w3m-mg
