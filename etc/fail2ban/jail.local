@@ -1,0 +1,10 @@
+[iptables-dns]
+# see https://freek.ws for more info
+enabled = true
+ignoreip = 127.0.0.1
+filter = iptables-dns
+action = iptables-multiport[name=iptables-dns, port="53", protocol=udp]
+logpath = /var/log/kern.log
+bantime = 86400
+findtime = 120
+maxretry = 1 
