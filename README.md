@@ -1,5 +1,6 @@
 # UniPi | Universal Pi-hole Settings
 
+```
 .
 |-- LICENSE
 |-- README.md
@@ -42,3 +43,4 @@
             `-- phpinfo.php
 
 14 directories, 25 files
+```
