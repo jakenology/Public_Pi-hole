@@ -1,4 +1,9 @@
 # UniPi | Universal Pi-hole Settings
+# Install
+To install UniPi Updater, please issue the following command on your system. Please check the code to make sure it was not tampered with at the time of execution. 
+```bash
+$ curl -sSL https://raw.githubusercontent.com/jaykepeters/UniPi/master/Install/install.sh | bash
+```
 # Directory Tree Structure (For Development)
 ```
 ├── cron
