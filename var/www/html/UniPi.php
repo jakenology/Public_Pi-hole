@@ -9,7 +9,7 @@ function storeVar()
     global $req;
 
     // Store the request in a variable
-    $req = $_GET['file'];
+    $req = $_GET['q'];
 
     // Convert request to lowercase
     $req = strtolower($req);
@@ -35,7 +35,7 @@ function error($url) {
 }
 
 // Is the variable set?
-if (isset($_GET['file']))
+if (isset($_GET['q']))
 {
     storeVar();
 }
@@ -54,6 +54,12 @@ if ($req == 'al')
     setHeader('/etc/pihole/regex.list', 'regex.list');
 } elseif ($req == 'wl') {
     setHeader('/etc/pihole/whitelist.txt', 'whitelist.txt');
+} elseif ($req == 'lg') {
+    setHeader('/var/log/pihole.log', 'pihole.log');
+} elseif ($req == 'ss') {
+    setHeader('/etc/dnsmasq.d/05-restrict.conf', 'safesearch.txt');
+} elseif ($req == 'hf') {
+    setHeader('/etc/dnsmasq.hosts', 'dnsmasq.hosts');
 } else {
     error('https://github.com/jaykepeters/UniPi/blob/master/README.md');
 }
