@@ -1,0 +1,4 @@
+#!/bin/bash
+# Flusher
+pihole -f &>/dev/null
+pihole restartdns &>/dev/null
