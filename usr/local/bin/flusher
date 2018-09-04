@@ -1,4 +1,6 @@
 #!/bin/bash
 # Flusher
+echo 'Cleaning Up'
 pihole -f &>/dev/null
+echo 'Restarting DNS'
 pihole restartdns &>/dev/null
