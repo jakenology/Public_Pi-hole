@@ -1,0 +1,5 @@
+#!/bin/bash
+# External IP Address Finder
+myIP=$(dig +short myip.opendns.com @resolver1.opendns.com)
+
+echo 'Your IP is: ' $myIP
