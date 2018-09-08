@@ -1,4 +1,5 @@
 (^|\.)researchscan.+\.eecs\.umich\.edu$
+(^|\.)webcrawler\.com$
 (^|\.).+local$
 (^|\.).+win$
 (^|\.).+club$
