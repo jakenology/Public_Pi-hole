@@ -3,3 +3,8 @@
 (^|\.).+local$
 (^|\.).+win$
 (^|\.).+club$
+(^|\.).+ru$
+^jss.+$
+^casper.+$
+^jamf.+$
+(^|\.).+jamfcloud\.com$
