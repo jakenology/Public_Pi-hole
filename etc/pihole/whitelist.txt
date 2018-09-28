@@ -1,1 +1,4 @@
+www.jamfcloud.com
+login.jamfcloud.com
+jpits.jamfcloud.com
 placehold.it
