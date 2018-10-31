@@ -68,23 +68,5 @@ Pi-hole | Network-wide ad blocking via your own Linux hardware
 #### IP Addr.:	35.188.83.81
 #### Statistics:	https://dns-a.jpits.us/admin
 
-# Public Pi-hole B (Production)
-#### Provider:	Google Cloud Platform
-#### Location:	North Virginia, U.S.A.
-#### IP Addr.:	35.188.238.162
-#### Statistics:    https://dns-b.jpits.us/admin
-
-# Public Pi-hole C (Production)
-#### Provider:	Google Cloud Platform
-#### Location:	St. Ghislain, Belgium
-#### IP Addr:	35.205.187.166
-#### Statistics:	https://dns-c.jpits.us/admin
-
-# Public Pi-hole (Beta Testing)
-#### Provider:	Google Cloud Platform
-#### Location:	Council Bluffs, Iowa, U.S.A
-#### IP Addr.:	35.188.66.94
-#### Statistics:	https://dns-test.jpits.us/admin
-
 ## Note to Users:	This service is provided “as-is”  and we cannot guarantee 100% uptime. By using this service, you accept that we may perform maintenance at any time for any reason. We recommend using two of our servers in case one was to go down. Please note that your traffic may be logged to help build better block lists. If you do not consent to this, please use servers “B” or “C” which have query logging disabled. 
 
