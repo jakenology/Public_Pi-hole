@@ -4,13 +4,6 @@
 db="/etc/pihole/pihole-FTL.db"
 
 # Pre Run Checks
-if [ "$#" -gt 1 ]; then
-    echo "ONLY ONE ARGUMENT PERMITTED"
-    exit 1
-elif [ "$#" -lt 1 ]; then
-    exit 1
-fi
-
 if [ "$#" -lt 1 ]; then
     exit 1
 elif [ "$#" -gt 1 ]; then
