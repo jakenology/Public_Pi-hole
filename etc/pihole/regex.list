@@ -37,6 +37,7 @@
 (^|\.).+vip$
 (^|\.).+wang$
 (^|\.).+webcam$
+(^|\.)wells-fargo-mobile[0-9].*.com$
 (^|\.).+win$
 (^|\.).+xin$
 (^|\.).+xxx$
