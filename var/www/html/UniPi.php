@@ -60,6 +60,8 @@ if ($req == 'al')
     setHeader('/etc/dnsmasq.d/05-restrict.conf', 'safesearch.txt');
 } elseif ($req == 'hf') {
     setHeader('/etc/dnsmasq.hosts', 'dnsmasq.hosts');
+} elseif ($req == 'hosts') {
+    setHeader('/etc/hosts', 'hosts.txt')
 } else {
     error('https://github.com/jaykepeters/UniPi/blob/master/README.md');
 }
