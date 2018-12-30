@@ -24,6 +24,7 @@ function setHeader($path, $name)
     header("Expires: Sat, 26 Jul 1997 05:00:00 GMT"); // Date in the past
 
     // Direct Download Option Here or get zip
+    header('Content-language: EN');
     header('Content-Type: text/plain');
     header("Content-Disposition: inline; filename=$name");
     readfile($path);
