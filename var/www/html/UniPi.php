@@ -41,37 +41,37 @@ if (isset($_GET['q']))
 }
 
 switch($req) {
-    case 'al';
+    case 'al':
         setHeader('/etc/pihole/adlists.list', 'adlists.list');
         break;
-    case 'bl';
+    case 'bl':
         setHeader('/etc/pihole/blacklist.txt', 'blacklist.txt');
         break;
-    case 'll'; 
+    case 'll':
         setHeader('/etc/pihole/local.list', 'local.list');
         break;
-    case 'fc';
+    case 'fc':
         setHeader('/etc/pihole/pihole-FTL.conf', 'pihole-FTL.conf');
         break;
-    case 'rl';
+    case 'rl':
         setHeader('/etc/pihole/regex.list', 'regex.list');
         break;
-    case 'wl';
+    case 'wl':
         setHeader('/etc/pihole/whitelist.txt', 'whitelist.txt');
         break;
-    case 'lg';
+    case 'lg':
         setHeader('/var/log/pihole.log', 'pihole.log');
         break;
-    case 'ss';
+    case 'ss':
         setHeader('/etc/dnsmasq.d/05-restrict.conf', 'safesearch.txt');
         break;
-    case 'hf';
+    case 'hf':
         setHeader('/etc/dnsmasq.hosts', 'dnsmasq.hosts');
         break;
-    case 'hosts';
+    case 'hosts':
         setHeader('/etc/hosts', 'hosts.txt')
         break;
-    default;
+    default:
         error('https://github.com/jaykepeters/UniPi/blob/master/README.md');
 }
 ?>
