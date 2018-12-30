@@ -69,7 +69,7 @@ switch($req) {
         setHeader('/etc/dnsmasq.hosts', 'dnsmasq.hosts');
         break;
     case 'hosts':
-        setHeader('/etc/hosts', 'hosts.txt')
+        setHeader('/etc/hosts', 'hosts.txt');
         break;
     default:
         error('https://github.com/jaykepeters/UniPi/blob/master/README.md');
