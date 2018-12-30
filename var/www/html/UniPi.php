@@ -3,6 +3,7 @@
 // Written by Jayke Peters
 // Define Functions
 // wget --content-disposition "URL"
+// DEMO REQUEST: UniPi.php?q=ll, returns the "Local List"
 function storeVar() 
 {
     // Set "$req" as a Global Variable
