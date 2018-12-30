@@ -40,29 +40,38 @@ if (isset($_GET['q']))
     storeVar();
 }
 
-// Determinte the correct query 
-if ($req == 'al') 
-{
-    setHeader('/etc/pihole/adlists.list', 'adlists.list');
-} elseif ($req == 'bl') {
-    setHeader('/etc/pihole/blacklist.txt', 'blacklist.txt');
-} elseif ($req == 'll') {
-    setHeader('/etc/pihole/local.list', 'local.list');
-} elseif ($req == 'fc') {
-    setHeader('/etc/pihole/pihole-FTL.conf', 'pihole-FTL.conf');
-} elseif ($req == 'rl') {
-    setHeader('/etc/pihole/regex.list', 'regex.list');
-} elseif ($req == 'wl') {
-    setHeader('/etc/pihole/whitelist.txt', 'whitelist.txt');
-} elseif ($req == 'lg') {
-    setHeader('/var/log/pihole.log', 'pihole.log');
-} elseif ($req == 'ss') {
-    setHeader('/etc/dnsmasq.d/05-restrict.conf', 'safesearch.txt');
-} elseif ($req == 'hf') {
-    setHeader('/etc/dnsmasq.hosts', 'dnsmasq.hosts');
-} elseif ($req == 'hosts') {
-    setHeader('/etc/hosts', 'hosts.txt')
-} else {
-    error('https://github.com/jaykepeters/UniPi/blob/master/README.md');
+switch($req) {
+    case 'al';
+        setHeader('/etc/pihole/adlists.list', 'adlists.list');
+        break;
+    case 'bl';
+        setHeader('/etc/pihole/blacklist.txt', 'blacklist.txt');
+        break;
+    case 'll'; 
+        setHeader('/etc/pihole/local.list', 'local.list');
+        break;
+    case 'fc';
+        setHeader('/etc/pihole/pihole-FTL.conf', 'pihole-FTL.conf');
+        break;
+    case 'rl';
+        setHeader('/etc/pihole/regex.list', 'regex.list');
+        break;
+    case 'wl';
+        setHeader('/etc/pihole/whitelist.txt', 'whitelist.txt');
+        break;
+    case 'lg';
+        setHeader('/var/log/pihole.log', 'pihole.log');
+        break;
+    case 'ss';
+        setHeader('/etc/dnsmasq.d/05-restrict.conf', 'safesearch.txt');
+        break;
+    case 'hf';
+        setHeader('/etc/dnsmasq.hosts', 'dnsmasq.hosts');
+        break;
+    case 'hosts';
+        setHeader('/etc/hosts', 'hosts.txt')
+        break;
+    default;
+        error('https://github.com/jaykepeters/UniPi/blob/master/README.md');
 }
 ?>
