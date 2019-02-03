@@ -1,4 +1,5 @@
-# UniPi | Universal Pi-hole Settings
+# Public Pi-hole Project
+# Making Pi-hole available to all...
 
 # Custom Features
 * Google SafeSearch and Bing Strict Search Options Enforced
