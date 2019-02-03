@@ -66,6 +66,12 @@ Pi-hole | Network-wide ad blocking via your own Linux hardware
 #### Provider:	Google Cloud Platform
 #### Location:	Council Bluffs, Iowa, U.S.A.
 #### IP Addr.:	35.188.83.81
-#### Statistics:	https://dns-a.jpits.us/admin
+#### Statistics:	http://pi-hole.jpits.us/admin
+
+# Public Pi-hole B (Production)
+#### Provider: Amazon Lightsail
+#### Location: Ohio, U.S.A.
+#### IP Addr.: 18.224.127.179
+#### Statistics:    http://red.pi-hole4all.net
 
 ## Note to Users:	This service is provided “as-is”  and we cannot guarantee 100% uptime. To report a problem, please visit https://support.jpits.us
