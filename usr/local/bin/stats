@@ -1,0 +1,37 @@
+#!/usr/bin/env python
+# Public Pi-hole Status 
+import pihole as ph
+
+password = "****************"
+domain = "pi-hole4all.net"
+
+resolvers = {
+    "master": "red",
+    "slaves": ["red","orange"]
+}
+
+master = ''
+slaves = []
+
+def getHostnames():
+    # Master Pi-hole
+    master = '.'.join([(resolvers['master']), domain])
+
+    # Slave Pi-holes
+    for slave in resolvers['slaves']:
+        hostname = '.'.join([slave, domain])
+        slaves.append(hostname)
+
+getHostnames()
+
+def getStats():
+    global totalQueries
+    totalQueries = 0
+
+    # Slaves
+    for slave in slaves:
+        slavePH = ph.PiHole(slave)
+        queries = int((slavePH.queries).replace(',', ''))
+        totalQueries += queries
+    print(totalQueries)
+getStats()
