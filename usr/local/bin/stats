@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # Public Pi-hole Status 
 import pihole as ph
+import json
 
-password = "****************"
 domain = "pi-hole4all.net"
 
 resolvers = {
@@ -10,6 +10,11 @@ resolvers = {
     "slaves": ["red","orange"]
 }
 
+stats = {
+    "queries": "",
+    "blocked": "",
+    "percentage": ""
+}
 master = ''
 slaves = []
 
@@ -25,13 +30,18 @@ def getHostnames():
 getHostnames()
 
 def getStats():
-    global totalQueries
     totalQueries = 0
-
+    totalBlocked = 0    
     # Slaves
     for slave in slaves:
         slavePH = ph.PiHole(slave)
         queries = int((slavePH.queries).replace(',', ''))
+        blocked = int((slavePH.blocked).replace(',', ''))
         totalQueries += queries
-    print(totalQueries)
+        totalBlocked += blocked
+        percentage = round(totalBlocked / float(totalQueries), 6)
+    stats['queries'] = totalQueries
+    stats['blocked'] = totalBlocked
+    stats['percentage'] = percentage
+    print(json.dumps(stats))
 getStats()
