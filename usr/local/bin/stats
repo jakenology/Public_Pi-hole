@@ -6,14 +6,14 @@ import json
 domain = "pi-hole4all.net"
 
 resolvers = {
-    "master": "red",
+    "master": "",
     "slaves": ["red","orange"]
 }
 
 stats = {
-    "queries": "",
-    "blocked": "",
-    "percentage": ""
+    "dns_queries_today": "",
+    "ads_blocked_today": "",
+    "ads_percentage_today": ""
 }
 master = ''
 slaves = []
@@ -40,8 +40,8 @@ def getStats():
         totalQueries += queries
         totalBlocked += blocked
         percentage = round(totalBlocked / float(totalQueries), 6)
-    stats['queries'] = totalQueries
-    stats['blocked'] = totalBlocked
-    stats['percentage'] = percentage
+    stats['dns_queries_today'] = totalQueries
+    stats['ads_blocked_today'] = totalBlocked
+    stats['ads_percentage_today'] = percentage
     print(json.dumps(stats))
 getStats()
