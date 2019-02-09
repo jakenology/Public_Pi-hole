@@ -1,8 +1,7 @@
 #!/usr/bin/env python
 # Public Pi-hole Status 
 #import pihole as ph
-
-password = "MiloMittens2015!"
+s
 domain = "pi-hole4all.net"
 
 resolvers = {
