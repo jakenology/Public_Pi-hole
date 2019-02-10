@@ -1,47 +1,98 @@
 #!/usr/bin/env python
-# Public Pi-hole Status 
+# Public Pi-hole Status
 import pihole as ph
-import json
+import urllib2, json
 
-domain = "pi-hole4all.net"
+# Resolver Informtation (Required)
+# API ACCESS METHOD: IP OR HOSTNAME
+access_method="IP"
 
+domain = ''
 resolvers = {
-    "master": "",
-    "slaves": ["red","orange"]
+    "master": "18.224.127.179",
+    "slaves": ["18.216.251.91", "151.80.145.143"]
 }
 
-stats = {
-    "dns_queries_today": "",
-    "ads_blocked_today": "",
-    "ads_percentage_today": ""
-}
-master = ''
-slaves = []
+class api:
+    selectormap = {
+        "abt": "ads_blocked_today",
+        "ces": "clients_ever_seen",
+        "dqt": "dns_queries_today"
+    }
+    stats = {
+        "abt": "",
+        "ces": "",
+        "dqt": ""
+    }
 
-def getHostnames():
-    # Master Pi-hole
-    master = '.'.join([(resolvers['master']), domain])
+def init():
+    global master, slaves
+    master = ''
+    slaves = []
 
-    # Slave Pi-holes
-    for slave in resolvers['slaves']:
-        hostname = '.'.join([slave, domain])
-        slaves.append(hostname)
+    def format_hostname(host):
+        return '.'.join([host, domain])
 
-getHostnames()
+    if access_method == "HOSTNAME":
+        master = format_hostname(resolvers['master'])
+        for slave in resolvers['slaves']:
+            hostname = format_hostname(slave)
+            slaves.append(hostname)
+    elif access_method == "IP":
+        master = resolvers['master']
+        for slave in resolvers['slaves']:
+            ip = slave
+            slaves.append(ip)
+    else:
+        print("INVALID ACCESS METHOD")
+        exit(1)
 
-def getStats():
-    totalQueries = 0
-    totalBlocked = 0    
-    # Slaves
-    for slave in slaves:
-        slavePH = ph.PiHole(slave)
-        queries = int((slavePH.queries).replace(',', ''))
-        blocked = int((slavePH.blocked).replace(',', ''))
-        totalQueries += queries
-        totalBlocked += blocked
-        percentage = round(totalBlocked / float(totalQueries), 6)
-    stats['dns_queries_today'] = totalQueries
-    stats['ads_blocked_today'] = totalBlocked
-    stats['ads_percentage_today'] = percentage
-    print(json.dumps(stats))
-getStats()
+def internet_on(host):
+    try:
+        urllib2.urlopen('http://'+host+'/admin/api.php', timeout=1)
+        return True
+    except:
+        return False
+
+def get_api_data(resolver):
+    def removeCommas(str):
+        return str.replace(',', '')
+
+    stats = api.stats
+    pihole = ph.PiHole(resolver)
+    stats['abt'] = pihole.blocked
+    stats['ces'] = pihole.total_clients
+    stats['dqt'] = pihole.queries
+    del pihole
+
+    # Sanitize the Statistics
+    for key, value in stats.items():
+        stats[key] = removeCommas(value)
+
+    # Return the API Data
+    return stats
+
+def public_api():
+    api_data = api.stats
+    if internet_on(master):
+        try:
+            master_api_data = get_api_data(master)
+            for key, value in api_data.items():
+                if type(master_api_data[key]) == 'int':
+                    api_data[key] = int(master_api_data[key])
+        except:
+            pass
+
+    # Finalize the API Data
+    for key, value in api.selectormap.items():
+        api_data[value] = api_data.pop(key)
+    
+    # Print the API Data as JSON
+    print(json.dumps(api_data))
+
+def main():
+    init()
+    public_api()
+
+## RUN THE PROGRAM
+main()
