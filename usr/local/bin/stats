@@ -1,28 +1,28 @@
 #!/usr/bin/env python
 # Public Pi-hole Status
-import pihole as ph
-import urllib2, json
+import pihole as ph, urllib2, re, json
 
-# Resolver Informtation (Required)
+# Resolver Information (Required)
 # API ACCESS METHOD: IP OR HOSTNAME
 access_method="IP"
-
 domain = ''
 resolvers = {
     "master": "18.224.127.179",
-    "slaves": ["18.216.251.91", "151.80.145.143"]
+    "slaves": ["18.216.251.91"]
 }
 
-class api:
+class api(object):
     selectormap = {
         "abt": "ads_blocked_today",
+        "apt": "ads_percentage_today",
         "ces": "clients_ever_seen",
         "dqt": "dns_queries_today"
     }
     stats = {
-        "abt": "",
-        "ces": "",
-        "dqt": ""
+        "abt": 0,
+        "apt": 0.0,
+        "ces": 0,
+        "dqt": 0
     }
 
 def init():
@@ -44,8 +44,7 @@ def init():
             ip = slave
             slaves.append(ip)
     else:
-        print("INVALID ACCESS METHOD")
-        exit(1)
+        exit("INVALID ACCESS METHOD")
 
 def internet_on(host):
     try:
@@ -58,37 +57,51 @@ def get_api_data(resolver):
     def removeCommas(str):
         return str.replace(',', '')
 
-    stats = api.stats
+    stats = api.stats.copy()
     pihole = ph.PiHole(resolver)
-    stats['abt'] = pihole.blocked
-    stats['ces'] = pihole.total_clients
-    stats['dqt'] = pihole.queries
+    stats['abt'] = int(removeCommas(pihole.blocked))
+    stats['ces'] = int(removeCommas(pihole.total_clients))
+    stats['dqt'] = int(removeCommas(pihole.queries))
     del pihole
-
-    # Sanitize the Statistics
-    for key, value in stats.items():
-        stats[key] = removeCommas(value)
 
     # Return the API Data
     return stats
 
 def public_api():
-    api_data = api.stats
+    api_data = api.stats.copy()
     if internet_on(master):
         try:
-            master_api_data = get_api_data(master)
-            for key, value in api_data.items():
-                if type(master_api_data[key]) == 'int':
-                    api_data[key] = int(master_api_data[key])
+            api_data = get_api_data(master)
         except:
             pass
 
-    # Finalize the API Data
-    for key, value in api.selectormap.items():
-        api_data[value] = api_data.pop(key)
-    
-    # Print the API Data as JSON
-    print(json.dumps(api_data))
+    for slave in slaves:
+        if internet_on(slave):
+            try:
+                slave_api_data = get_api_data(slave)
+                for key, value in slave_api_data.items():
+                        api_data[key] += slave_api_data[key]
+            except:
+                pass
+
+    # Percentage Calculation Function
+    def calculatePercentage(num1, num2):
+        roundTo = 6
+        #return round(num1 / float(num2), roundTo)
+        return 100.0
+
+    # At least one resolver is up
+    if api_data != api.stats:
+        # Finalize the API Data
+        api_data['apt'] = calculatePercentage(api_data['abt'], api_data['dqt'])
+        for key, value in api.selectormap.items():
+            api_data[value] = api_data.pop(key)
+
+        # Print the API Data as JSON
+        print(json.dumps(api_data))
+    else:
+        exit("NO API CONNECTIONS AVAILABLE")
+        pass
 
 def main():
     init()
