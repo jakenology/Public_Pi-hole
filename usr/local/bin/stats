@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Public Pi-hole Status
-import pihole as ph, urllib2, re, json
+import pihole as ph, urllib2, json
 
 # Resolver Information (Required)
 # API ACCESS METHOD: IP OR HOSTNAME
@@ -11,7 +11,7 @@ resolvers = {
     "slaves": ["18.216.251.91"]
 }
 
-class api(object):
+class api:
     selectormap = {
         "abt": "ads_blocked_today",
         "apt": "ads_percentage_today",
@@ -19,10 +19,10 @@ class api(object):
         "dqt": "dns_queries_today"
     }
     stats = {
-        "abt": 0,
-        "apt": 0.0,
-        "ces": 0,
-        "dqt": 0
+        "abt": 0, # Integer
+        "apt": 0.0, # Float
+        "ces": 0, # Integer
+        "dqt": 0 # Integer
     }
 
 def init():
@@ -41,14 +41,13 @@ def init():
     elif access_method == "IP":
         master = resolvers['master']
         for slave in resolvers['slaves']:
-            ip = slave
-            slaves.append(ip)
+            slaves.append(slave)
     else:
         exit("INVALID ACCESS METHOD")
 
 def internet_on(host):
     try:
-        urllib2.urlopen('http://'+host+'/admin/api.php', timeout=1)
+        urllib2.urlopen('http://'+host+'/admin/api.php', timeout=0.2)
         return True
     except:
         return False
@@ -68,12 +67,15 @@ def get_api_data(resolver):
     return stats
 
 def public_api():
+    downResolvers = []
     api_data = api.stats.copy()
     if internet_on(master):
         try:
             api_data = get_api_data(master)
         except:
             pass
+    else:
+        downResolvers.append(master)
 
     for slave in slaves:
         if internet_on(slave):
@@ -83,13 +85,13 @@ def public_api():
                         api_data[key] += slave_api_data[key]
             except:
                 pass
+        else:
+            downResolvers.append(slave)
 
     # Percentage Calculation Function
     def calculatePercentage(num1, num2):
-        roundTo = 6
-        #return round(num1 / float(num2), roundTo)
-        return 100.0
-
+        roundToPlaces = 6
+        return round(float(num1)/float(num2)*100, roundToPlaces)
     # At least one resolver is up
     if api_data != api.stats:
         # Finalize the API Data
@@ -97,15 +99,20 @@ def public_api():
         for key, value in api.selectormap.items():
             api_data[value] = api_data.pop(key)
 
+        # Down Resolvers
+        if not downResolvers:
+            api_data['downResolvers'] = "none"
+        else:
+            api_data['downResolvers'] = downResolvers
+
         # Print the API Data as JSON
         print(json.dumps(api_data))
     else:
-        exit("NO API CONNECTIONS AVAILABLE")
+        exit("CONNECTION TIMED OUT")
         pass
 
 def main():
     init()
     public_api()
 
-## RUN THE PROGRAM
 main()
