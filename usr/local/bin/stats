@@ -66,6 +66,22 @@ def get_api_data(resolver):
     # Return the API Data
     return stats
 
+def getList(list, resolver):
+    try:
+        pihole = ph.PiHole(resolver)
+    except:
+        exit("Could not connect to: " + resolver)
+    if list == 'black':
+        blacklist = pihole.getList(list)[0]
+        return blacklist
+    elif list == 'regex':
+        regexlist = pihole.getList("black")[1]
+        return regexlist
+    elif list == 'white':
+        return pihole.getList(list)
+    else:
+        exit("INVALID LIST")
+
 def public_api():
     downResolvers = []
     api_data = api.stats.copy()
