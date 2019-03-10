@@ -1,45 +1,60 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
+<!-- saved from url=(0037)https://www.pi-hole4all.net/stats.php -->
 <html lang="EN">
-    <head>
-        <title>Pi-hole4All Statistics</title>
-        <!-- JQUERY -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <style>
-            body {
-                font-family: 'Arial';
-                background-color: gray;
-                color: white;
-                text-shadow: 1px black;
-            }
-            #header {
-                text-align: center;
-                color: red;
-            }
-            .data {
-                color: black;
-                font-weight: bold;
-            }
-        </style>
-    </head>
-    <body>
-        <h1 id="header">Pi-hole4All Statistics</h1>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Pi-hole4All Statistics</title>
+    <!-- JQUERY -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <style>
+        html {
+            background: url(https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Fimages6.alphacoders.com%2F558%2F558932.jpg&f=1) no-repeat center center fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover
+        }
+        
+        body {
+            font-family: 'Arial';
+            color: red;
+            text-shadow: 1px black
+        }
+        
+        #header {
+            text-align: center;
+            color: red;
+            text-shadow: 1px 2px white
+        }
+        
+        .data {
+            color: #fff;
+            font-weight: bold
+        }
+    </style>
+</head>
+
+<body>
+    <h1 id="header">Pi-hole4All Statistics</h1>
+    <div id="stats">
         <p><strong>Ads Blocked Today: </strong><span class="data" id="ads_blocked_today"></span></p>
         <p><strong>DNS Queries Today: </strong><span class="data" id="dns_queries_today"></span></p>
         <p><strong>Ads Percentage Today: </strong><span class="data" id="ads_percentage_today"></span></p>
+    </div>
 
-        <!-- THE MAGIC -->
-        <script>
-        // Global Variables
+    <!-- THE MAGIC -->
+    <script>
         var response;
 
-        // Text Setter
-        function setText(id,newvalue) {
+        function setText(id, newvalue) {
             var s = document.getElementById(id);
             s.innerHTML = newvalue;
-        }  
+        }
 
         function apiData() {
-            $.getJSON("https://www.pi-hole4all.net/api.php",function(data){
+            $.getJSON("https://www.pi-hole4all.net/api.php", function(data) {
                 response = data;
                 dataReady();
             });
@@ -47,14 +62,13 @@
 
         function formatData(data) {
             function formatNumber(number) {
-                formattedNumber = number.toLocaleString('en')
+                formattedNumber = number.toLocaleString('en');
                 return formattedNumber;
             }
-
             ads_blocked_today = formatNumber(data.ads_blocked_today);
             dns_queries_today = formatNumber(data.dns_queries_today);
             ads_percentage_today = formatNumber(data.ads_percentage_today * 100);
-            ads_percentage_today = Math.round(10*ads_percentage_today)/10 + '%';
+            ads_percentage_today = Math.round(10 * ads_percentage_today) / 10 + '%';
         }
 
         function dataReady() {
@@ -63,14 +77,14 @@
             setText("dns_queries_today", dns_queries_today);
             setText("ads_percentage_today", ads_percentage_today);
         }
-
-        window.setInterval(function(){
-            apiData(); 
+        window.setInterval(function() {
+            apiData();
         }, 500);
-
-        window.onload=function() {
+        window.onload = function() {
             apiData();
         }
-        </script>
-    </body>
+    </script>
+
+</body>
+    
 </html>
