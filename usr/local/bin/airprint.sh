@@ -28,6 +28,7 @@ cd foo2zjs
 make
 make install
 make cups
+rm foo2zjs.tar.gz
 
 # Done!
 echo "foo2zjs Successfully Installed!"
