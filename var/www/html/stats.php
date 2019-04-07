@@ -1,16 +1,16 @@
+
 <!DOCTYPE html>
-<!-- saved from url=(0037)https://www.pi-hole4all.net/stats.php -->
+
 <html lang="EN">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pi-hole4All Statistics</title>
 
-    <title>Pi-hole4All Statistics</title>
-    <!-- JQUERY -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <style>
+<script src="/cdn-cgi/apps/head/Su1KxO5nDlzWVA1tOazKmHbaEBo.js"></script><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<style>
         html {
-            background: url(https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Fimages6.alphacoders.com%2F558%2F558932.jpg&f=1) no-repeat center center fixed;
+	    background: url(background.jpg) no-repeat center center fixed;
             -webkit-background-size: cover;
             -moz-background-size: cover;
             -o-background-size: cover;
@@ -35,31 +35,26 @@
         }
     </style>
 </head>
-
 <body>
-    <h1 id="header">Pi-hole4All Statistics</h1>
-    <div id="stats">
-        <p><strong>Ads Blocked Today: </strong><span class="data" id="ads_blocked_today"></span></p>
-        <p><strong>DNS Queries Today: </strong><span class="data" id="dns_queries_today"></span></p>
-        <p><strong>Ads Percentage Today: </strong><span class="data" id="ads_percentage_today"></span></p>
-    </div>
+<h1 id="header">Pi-hole4All Statistics</h1>
+<div id="stats">
+<p><strong>Ads Blocked Today: </strong><span class="data" id="ads_blocked_today"></span></p>
+<p><strong>DNS Queries Today: </strong><span class="data" id="dns_queries_today"></span></p>
+<p><strong>Ads Percentage Today: </strong><span class="data" id="ads_percentage_today"></span></p>
+</div>
 
-    <!-- THE MAGIC -->
-    <script>
+<script>
         var response;
-
         function setText(id, newvalue) {
             var s = document.getElementById(id);
             s.innerHTML = newvalue;
         }
-
         function apiData() {
             $.getJSON("https://api.pi-hole4all.net/", function(data) {
                 response = data;
                 dataReady();
             });
         }
-
         function formatData(data) {
             function formatNumber(number) {
                 formattedNumber = number.toLocaleString('en');
@@ -70,7 +65,6 @@
             ads_percentage_today = formatNumber(data.ads_percentage_today * 100);
             ads_percentage_today = Math.round(10 * ads_percentage_today) / 10 + '%';
         }
-
         function dataReady() {
             formatData(response);
             setText("ads_blocked_today", ads_blocked_today);
@@ -84,7 +78,5 @@
             apiData();
         }
     </script>
-
 </body>
-    
 </html>
