@@ -62,8 +62,7 @@
             }
             ads_blocked_today = formatNumber(data.ads_blocked_today);
             dns_queries_today = formatNumber(data.dns_queries_today);
-            ads_percentage_today = formatNumber(data.ads_percentage_today * 100);
-            ads_percentage_today = Math.round(10 * ads_percentage_today) / 10 + '%';
+            ads_percentage_today = Math.round(10 * data.ads_percentage_today) / 10 + '%';
         }
         function dataReady() {
             formatData(response);
