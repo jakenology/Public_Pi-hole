@@ -54,7 +54,7 @@
         }
 
         function apiData() {
-            $.getJSON("https://www.pi-hole4all.net/api.php", function(data) {
+            $.getJSON("https://api.pi-hole4all.net/", function(data) {
                 response = data;
                 dataReady();
             });
