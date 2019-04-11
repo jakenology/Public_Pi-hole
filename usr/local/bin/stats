@@ -1,14 +1,14 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # Public Pi-hole Status
-import pihole as ph, urllib2, json
+import pihole as ph, urllib3, json
 
 # Resolver Information (Required)
 # API ACCESS METHOD: IP OR HOSTNAME
-access_method="IP"
-domain = ''
+access_method="HOSTNAME"
+domain = 'pi-hole4all.net'
 resolvers = {
-    "master": "18.224.127.179",
-    "slaves": ["18.216.251.91"]
+    "master": "red",
+    "slaves": ["orange", "tjj", "pd"]
 }
 
 class api:
@@ -47,7 +47,7 @@ def init():
 
 def internet_on(host):
     try:
-        urllib2.urlopen('http://'+host+'/admin/api.php', timeout=0.2)
+#        urllib2.urlopen('https://'+host+'/admin/api.php', timeout=0.2)
         return True
     except:
         return False
@@ -58,6 +58,8 @@ def get_api_data(resolver):
 
     stats = api.stats.copy()
     pihole = ph.PiHole(resolver)
+    pihole.protocol = "https://"
+    pihole.port = 443
     stats['abt'] = int(removeCommas(pihole.blocked))
     stats['ces'] = int(removeCommas(pihole.total_clients))
     stats['dqt'] = int(removeCommas(pihole.queries))
