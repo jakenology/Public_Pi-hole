@@ -6,11 +6,10 @@
 * OpenDNS to block adult content, academic dishonesty, proxies & VPN, etc. 
 * DNS Amplification attack protection
 
-# Public Pi-hole A (Production)
+# Public Pi-hole A (OUT OF SERVICE)
 #### Provider:	Google Cloud Platform
 #### Location:	Council Bluffs, Iowa, U.S.A.
-#### IP Addr.:	35.188.83.81
-#### Statistics:	http://pi-hole.jpits.us/admin
+#### OLD IP Addr.:	35.188.83.81
 
 # Public Pi-hole B (NextGen Production)
 #### Provider: Amazon Lightsail
