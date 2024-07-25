@@ -1,6 +1,4 @@
 # Public Pi-hole Project
-# HELP WANTED/COLLABORATION/COMANAGEMENT
-# piholeadmins@bluejayit.com
 
 # Making Pi-hole available to all...
 
