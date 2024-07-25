@@ -9,8 +9,7 @@
 
 # UPDATE: PUBLIC PIHOLE PROJECT HAS BEEN SUSPENDED. IF YOU WOULD LIKE TO CONTRIBUTE AND BE A PART OF THE `ADBLOCKDNS.NET` DOMAIN, PLEASE CONTACT!
 
-## I can not guarantee 100% uptime, but if you encounter any issue or need something whitelisted, please email me at support@jpits.us and I will get back to you A.S.A.P.
-
+## I can not guarantee 100% uptime, but if you encounter any issue or need something whitelisted, please open an issue
 
 ### INSTALLATION(S)
 ## IPTABLES PERSISTENT
